@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Detection Dashboard{% endblock %}
+{% block content %}
+
+<div class="mb-4">
+  <h2 class="fw-bold">Detection Dashboard</h2>
+  <p class="text-secondary mb-0">Choose a check below. Results are indicative, so always verify with trusted sources.</p>
+</div>
+
+<ul class="nav nav-pills detect-tabs gap-2 mb-4">
+  <li class="nav-item">
+    <a class="nav-link {{ 'active' if tab == 'text' }}" href="{{ url_for('detect', tab='text') }}"><i class="bi bi-newspaper"></i> Fake News</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {{ 'active' if tab == 'image' }}" href="{{ url_for('detect', tab='image') }}"><i class="bi bi-image"></i> AI Image</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {{ 'active' if tab == 'video' }}" href="{{ url_for('detect', tab='video') }}"><i class="bi bi-camera-video"></i> Deepfake Video</a>
+  </li>
+</ul>
+
+<div class="glass info-strip p-3 mb-4 small">
+  <i class="bi bi-cpu"></i>
+  <strong>Demo Analysis Mode:</strong> until a trained model is connected, these checks are transparent
+  rule-based and metadata/frame heuristics. They are not guaranteed AI detection, and results show a
+  confidence level so you can judge how much weight to give them.
+</div>
+
+{% if tab == 'text' %}
+<section class="glass p-4 p-md-5">
+  <h4 class="text-white mb-1"><i class="bi bi-newspaper"></i> Fake News Detection</h4>
+  <p class="text-secondary small">Paste a headline, article or forwarded message to check it for suspicious patterns.</p>
+  <form method="post" action="{{ url_for('analyze_text_route') }}" class="analyze-form" novalidate>
+    <label class="form-label fw-semibold" for="news_text">News or suspicious information</label>
+    <textarea class="form-control glass-input" id="news_text" name="news_text" rows="9"
+              minlength="{{ min_chars }}" maxlength="{{ max_chars }}" required
+              placeholder="Paste a headline, article, social media post or forwarded message..."
+              data-counter></textarea>
+    <div class="d-flex justify-content-between small text-secondary mt-2">
+      <span>Minimum {{ min_chars }} characters</span>
+      <span data-counter-target>0 / {{ max_chars }}</span>
+    </div>
+    <button type="submit" class="btn btn-gradient btn-lg mt-3"><i class="bi bi-search"></i> Analyze Text</button>
+  </form>
+</section>
+{% endif %}
+
+{% if tab == 'image' %}
+<section class="glass p-4 p-md-5">
+  <h4 class="text-white mb-1"><i class="bi bi-image"></i> AI Image Detection</h4>
+  <p class="text-secondary small">Upload an image to check for signs of AI generation or editing.</p>
+  <form method="post" action="{{ url_for('analyze_image_route') }}" enctype="multipart/form-data" class="analyze-form">
+    <div class="dropzone" data-dropzone data-exts="png,jpg,jpeg,webp" data-max-mb="{{ max_image_mb }}">
+      <input type="file" name="image" id="image" accept="image/png,image/jpeg,image/webp" class="d-none" data-file-input required>
+      <div class="dz-prompt">
+        <i class="bi bi-cloud-arrow-up dz-icon"></i>
+        <p class="mb-1">Drag &amp; drop an image here, or <span class="text-info fw-semibold">click to browse</span></p>
+        <small class="text-secondary">PNG, JPG or WEBP &middot; up to {{ max_image_mb }} MB</small>
+      </div>
+      <div class="dz-preview d-none" data-preview-box></div>
+    </div>
+    <div class="alert alert-danger d-none mt-3" data-error role="alert"></div>
+    <button type="submit" class="btn btn-gradient btn-lg mt-3"><i class="bi bi-search"></i> Analyze Image</button>
+  </form>
+</section>
+{% endif %}
+
+{% if tab == 'video' %}
+<section class="glass p-4 p-md-5">
+  <h4 class="text-white mb-1"><i class="bi bi-camera-video"></i> Deepfake Video Detection</h4>
+  <p class="text-secondary small">Upload a short clip to check frame consistency and sharpness for manipulation patterns.</p>
+  <form method="post" action="{{ url_for('analyze_video_route') }}" enctype="multipart/form-data" class="analyze-form">
+    <div class="dropzone" data-dropzone data-exts="mp4,webm,mov,avi" data-max-mb="{{ max_video_mb }}">
+      <input type="file" name="video" id="video" accept="video/mp4,video/webm,video/quicktime,video/x-msvideo" class="d-none" data-file-input required>
+      <div class="dz-prompt">
+        <i class="bi bi-film dz-icon"></i>
+        <p class="mb-1">Drag &amp; drop a video here, or <span class="text-info fw-semibold">click to browse</span></p>
+        <small class="text-secondary">MP4, WEBM, MOV or AVI &middot; up to {{ max_video_mb }} MB</small>
+      </div>
+      <div class="dz-preview d-none" data-preview-box></div>
+    </div>
+    <div class="alert alert-danger d-none mt-3" data-error role="alert"></div>
+    <button type="submit" class="btn btn-gradient btn-lg mt-3"><i class="bi bi-search"></i> Analyze Video</button>
+  </form>
+</section>
+{% endif %}
+
+{% endblock %}

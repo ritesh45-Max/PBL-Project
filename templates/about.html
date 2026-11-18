@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}About Project{% endblock %}
+{% block content %}
+
+<div class="text-center mb-5">
+  <h1 class="fw-bold">About <span class="gradient-text">TruthGuard AI</span></h1>
+  <p class="text-secondary">AI-Based Fake News &amp; Deepfake Detection Platform</p>
+</div>
+
+<div class="row g-4 mb-4">
+  <div class="col-md-6">
+    <div class="glass p-4 h-100">
+      <h4 class="text-white"><i class="bi bi-exclamation-triangle text-warning"></i> Problem Statement</h4>
+      <p class="text-secondary mb-0">Misleading news, AI-generated images and manipulated videos spread quickly on social media. Most people do not have the time or tools to check each piece of content before they share it.</p>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="glass p-4 h-100">
+      <h4 class="text-white"><i class="bi bi-lightbulb text-info"></i> Our Solution</h4>
+      <p class="text-secondary mb-0">TruthGuard AI gives one simple place to analyse text, images and videos. It returns an authenticity score, explains the reasons behind it and recommends how to verify the content through trusted sources.</p>
+    </div>
+  </div>
+</div>
+
+<div class="row g-4 mb-4">
+  <div class="col-md-6">
+    <div class="glass p-4 h-100">
+      <h4 class="text-white"><i class="bi bi-bullseye"></i> Project Objectives</h4>
+      <ul class="text-secondary mb-0 ps-3">
+        <li>Detect suspicious or misleading news text.</li>
+        <li>Identify possible AI-generated or manipulated images.</li>
+        <li>Flag possible deepfake patterns in videos.</li>
+        <li>Explain every result in plain language.</li>
+        <li>Teach users how to verify information before sharing.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="glass p-4 h-100">
+      <h4 class="text-white"><i class="bi bi-cpu"></i> Technology Used</h4>
+      <ul class="text-secondary mb-0 ps-3">
+        <li><strong>Frontend:</strong> HTML5, CSS3, JavaScript, Bootstrap 5</li>
+        <li><strong>Backend:</strong> Python, Flask</li>
+        <li><strong>AI / Image / Video:</strong> Python, Pillow, OpenCV (optional trained model hook)</li>
+        <li><strong>Database:</strong> SQLite</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="glass p-4 mb-4">
+  <h4 class="text-white"><i class="bi bi-diagram-3"></i> How the Platform Works</h4>
+  <p class="text-secondary mb-2">Content is uploaded, prepared (text, metadata or video frames), checked by the detection module, converted into an authenticity score from 0 to 100, and shown on a results dashboard with reasons and recommendations.</p>
+  <p class="small text-secondary mb-0"><i class="bi bi-info-circle"></i> The current build runs in <strong>Demo Analysis Mode</strong> unless a trained model is added. Demo checks are transparent heuristics, not genuine AI detection, and the results say so.</p>
+</div>
+
+<div class="glass p-4 text-center">
+  <h5 class="text-white mb-3">Project Credits</h5>
+  <p class="mb-1">Project Created By: <strong>Ritesh</strong></p>
+  <p class="mb-0">Guided By: <strong>Aaradhna Deshmukh Ma'am</strong></p>
+</div>
+{% endblock %}

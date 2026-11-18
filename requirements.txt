@@ -1,0 +1,6 @@
+Flask>=3.0
+Pillow>=10.0
+# Optional but recommended: enables real frame analysis for videos
+opencv-python-headless>=4.8
+# Optional: only needed when you add a trained text model later
+joblib>=1.3

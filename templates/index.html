@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<section class="hero glass p-4 p-md-5 mb-5">
+  <div class="row align-items-center g-4">
+    <div class="col-lg-7 text-center text-lg-start">
+      <span class="pill mb-3"><i class="bi bi-lightning-charge-fill"></i> Verify. Analyze. Stay Informed.</span>
+      <h1 class="display-5 fw-bold">Don't Believe Everything You See. <span class="gradient-text">Verify It With AI.</span></h1>
+      <p class="lead text-secondary mt-3">
+        TruthGuard AI helps you check suspicious news, AI-generated images and deepfake-style
+        videos, then explains why something may be misleading so you can decide what to trust.
+      </p>
+      <div class="d-flex gap-3 flex-wrap justify-content-center justify-content-lg-start mt-4">
+        <a href="{{ url_for('detect') if current_user else url_for('register') }}" class="btn btn-gradient btn-lg">
+          <i class="bi bi-rocket-takeoff"></i> Get Started
+        </a>
+        <a href="#features" class="btn btn-outline-light btn-lg">Explore Features</a>
+      </div>
+    </div>
+    <div class="col-lg-5 text-center">
+      <div class="hero-visual"><i class="bi bi-shield-shaded"></i></div>
+    </div>
+  </div>
+</section>
+
+<section class="row g-4 mb-5 text-center">
+  <div class="col-6 col-md-3"><div class="glass stat-card p-4"><h3 class="fw-bold gradient-text">{{ total_analyses }}</h3><small class="text-secondary">Analyses performed</small></div></div>
+  <div class="col-6 col-md-3"><div class="glass stat-card p-4"><h3 class="fw-bold gradient-text">3</h3><small class="text-secondary">Detection modules</small></div></div>
+  <div class="col-6 col-md-3"><div class="glass stat-card p-4"><h3 class="fw-bold gradient-text">6</h3><small class="text-secondary">Step workflow</small></div></div>
+  <div class="col-6 col-md-3"><div class="glass stat-card p-4"><h3 class="fw-bold gradient-text">Secure</h3><small class="text-secondary">Private history &amp; reports</small></div></div>
+</section>
+
+<section id="features" class="mb-5">
+  <h2 class="fw-bold text-center mb-4">Detection Features</h2>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <a href="{{ url_for('detect', tab='text') }}" class="text-decoration-none">
+        <div class="glass feature-card p-4 h-100">
+          <div class="icon-badge"><i class="bi bi-newspaper"></i></div>
+          <h5 class="mt-3 text-white">Fake News Detection</h5>
+          <p class="text-secondary small mb-0">Paste a headline or article to check for sensational wording, emotional pressure and missing sources.</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4">
+      <a href="{{ url_for('detect', tab='image') }}" class="text-decoration-none">
+        <div class="glass feature-card p-4 h-100">
+          <div class="icon-badge"><i class="bi bi-image"></i></div>
+          <h5 class="mt-3 text-white">AI Image Detection</h5>
+          <p class="text-secondary small mb-0">Upload a picture to check metadata, dimensions and texture for signs of AI generation or editing.</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4">
+      <a href="{{ url_for('detect', tab='video') }}" class="text-decoration-none">
+        <div class="glass feature-card p-4 h-100">
+          <div class="icon-badge"><i class="bi bi-camera-video"></i></div>
+          <h5 class="mt-3 text-white">Deepfake Video Detection</h5>
+          <p class="text-secondary small mb-0">Upload a clip to measure frame consistency and sharpness for unusual manipulation patterns.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="mb-5">
+  <h2 class="fw-bold text-center mb-4">How It Works</h2>
+  <div class="row g-4">
+    {% set steps = [
+      ("User Input", "Upload text, an image or a video."),
+      ("Input Processing", "Extract text, metadata and video frames."),
+      ("AI Analysis", "Analyse content with AI and machine learning checks."),
+      ("Detection", "Identify suspicious patterns and manipulation signs."),
+      ("Authenticity Assessment", "Generate a 0-100 score with its limitations explained."),
+      ("Results Dashboard", "View predictions, reasons and verification steps."),
+    ] %}
+    {% for title, text in steps %}
+    <div class="col-md-6 col-lg-4">
+      <div class="glass step-card p-4 h-100">
+        <span class="step-num">{{ loop.index }}</span>
+        <h5 class="mt-3 mb-2 text-white">{{ title }}</h5>
+        <p class="text-secondary small mb-0">{{ text }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<div class="glass disclaimer p-3 text-center small">
+  <i class="bi bi-info-circle"></i>
+  TruthGuard AI gives indicative predictions, not guaranteed results. Always verify important information through trusted sources.
+</div>
+{% endblock %}

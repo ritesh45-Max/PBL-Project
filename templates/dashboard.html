@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+
+<div class="mb-4">
+  <h2 class="fw-bold">Welcome, <span class="gradient-text">{{ user.full_name }}</span></h2>
+  <p class="text-secondary mb-0">Your verification overview and profile settings.</p>
+</div>
+
+<div class="row g-4 mb-4 text-center">
+  <div class="col-6 col-md-3"><div class="glass stat-card p-4"><h3 class="fw-bold gradient-text">{{ totals.total }}</h3><small class="text-secondary">Total analyses</small></div></div>
+  <div class="col-6 col-md-3"><div class="glass stat-card p-4"><h3 class="fw-bold gradient-text">{{ totals.avg_score | int }}</h3><small class="text-secondary">Average score</small></div></div>
+  <div class="col-6 col-md-3"><div class="glass stat-card p-4"><h3 class="fw-bold gradient-text">{{ type_counts.get('text', 0) }}</h3><small class="text-secondary">Text checks</small></div></div>
+  <div class="col-6 col-md-3"><div class="glass stat-card p-4"><h3 class="fw-bold gradient-text">{{ type_counts.get('image', 0) + type_counts.get('video', 0) }}</h3><small class="text-secondary">Image &amp; video checks</small></div></div>
+</div>
+
+<div class="row g-4">
+  <div class="col-lg-7">
+    <div class="glass p-4 h-100">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="text-white mb-0"><i class="bi bi-clock-history"></i> Recent Analyses</h5>
+        <a href="{{ url_for('history') }}" class="small">View all</a>
+      </div>
+      {% if recent %}
+        <ul class="list-unstyled mb-0">
+          {% for item in recent %}
+          <li class="d-flex justify-content-between align-items-center py-2 border-bottom border-secondary-subtle">
+            <a href="{{ url_for('result', analysis_id=item.id) }}" class="text-white text-decoration-none text-truncate me-3">
+              {{ item.title }}
+              <small class="d-block text-secondary">{{ item.content_type | title }} &middot; {{ item.created_at }}</small>
+            </a>
+            <span class="badge-result badge-{{ 'green' if item.score >= 70 else 'yellow' if item.score >= 40 else 'red' }}">{{ item.score }}/100</span>
+          </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="text-secondary mb-3">You have not run any analysis yet.</p>
+        <a href="{{ url_for('detect') }}" class="btn btn-gradient btn-sm">Run your first check</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="col-lg-5">
+    <div class="glass p-4">
+      <h5 class="text-white mb-3"><i class="bi bi-person-gear"></i> Profile</h5>
+      <p class="small text-secondary mb-3">Username: <strong class="text-white">{{ user.username }}</strong> &middot; Joined {{ user.created_at[:10] }}</p>
+      <form method="post" action="{{ url_for('update_profile') }}">
+        <div class="mb-3">
+          <label class="form-label" for="full_name">Full name</label>
+          <input class="form-control glass-input" id="full_name" name="full_name" value="{{ user.full_name }}" minlength="2" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="email">Email</label>
+          <input class="form-control glass-input" id="email" name="email" type="email" value="{{ user.email }}" required>
+        </div>
+        <hr class="border-secondary">
+        <p class="small text-secondary mb-2">Change password (optional)</p>
+        <div class="mb-2">
+          <input class="form-control glass-input" name="current_password" type="password" placeholder="Current password">
+        </div>
+        <div class="mb-3">
+          <input class="form-control glass-input" name="new_password" type="password" minlength="8" placeholder="New password (min 8 characters)">
+        </div>
+        <button type="submit" class="btn btn-gradient w-100">Save Changes</button>
+      </form>
+      <a href="{{ url_for('logout') }}" class="btn btn-outline-danger w-100 mt-3"><i class="bi bi-box-arrow-right"></i> Logout</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Awareness{% endblock %}
+{% block content %}
+
+<div class="text-center mb-5">
+  <h1 class="fw-bold">Digital <span class="gradient-text">Awareness</span></h1>
+  <p class="text-secondary">Learn to spot misleading content before you share it.</p>
+</div>
+
+<div class="row g-4">
+  <div class="col-md-6">
+    <div class="glass p-4 h-100">
+      <h4 class="text-white"><i class="bi bi-share text-info"></i> How Fake News Spreads</h4>
+      <ul class="text-secondary ps-3 mb-0">
+        <li>Emotional content such as fear, anger or surprise gets shared faster.</li>
+        <li>Messages forwarded in groups seem trustworthy because they come from people we know.</li>
+        <li>Algorithms reward engagement, so provocative posts reach more people.</li>
+        <li>Short clips and screenshots remove the original context.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="glass p-4 h-100">
+      <h4 class="text-white"><i class="bi bi-person-bounding-box text-primary"></i> How Deepfakes Are Created</h4>
+      <ul class="text-secondary ps-3 mb-0">
+        <li>AI models learn the face, voice and movements of a person from many samples.</li>
+        <li>The model then generates new footage of that person saying or doing something they never did.</li>
+        <li>Editing tools can also swap faces, change backgrounds or alter speech.</li>
+        <li>Quality keeps improving, so visual inspection alone is no longer reliable.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="glass p-4 h-100">
+      <h4 class="text-white"><i class="bi bi-search text-warning"></i> Identifying Suspicious Content</h4>
+      <ul class="text-secondary ps-3 mb-0">
+        <li>Headlines in ALL CAPS or with many exclamation marks.</li>
+        <li>Claims with no named source, date or link.</li>
+        <li>Pressure to share urgently before it is "deleted".</li>
+        <li>Images or videos with odd lighting, blurry edges, or unnatural blinking and lip movement.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="glass p-4 h-100">
+      <h4 class="text-white"><i class="bi bi-patch-check text-success"></i> Verifying News with Trusted Sources</h4>
+      <ul class="text-secondary ps-3 mb-0">
+        <li>Check the story on at least two reliable news outlets.</li>
+        <li>Go to the original source: official websites, press releases or documents.</li>
+        <li>Use reputable fact-checking organisations and reverse image or video search.</li>
+        <li>Pause before sharing. If you are unsure, do not forward it.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="text-center mt-5">
+  <a href="{{ url_for('detect') }}" class="btn btn-gradient btn-lg"><i class="bi bi-shield-check"></i> Check Something Now</a>
+</div>
+{% endblock %}
